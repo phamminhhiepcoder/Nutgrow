@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUIZ AI NUTGROW</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/assets/css/api.css}">
+    <script type="importmap">
+      {
+        "imports": {
+          "@vapi-ai/web": "https://esm.sh/@vapi-ai/web"
+        }
+      }
+    </script>
+
+    <style>
+        .custom-card {
+            background-color: #2e3856;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            color: white;
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+            border: none;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .custom-card:hover {
+            background-color: #3e4a6d;
+            transform: translateY(-5px);
+        }
+
+        .icon-box {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #4255ff;
+        }
+
+        .card-text {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin: 0;
+        }
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body>
+    <th:block th:replace="layout/user-layout :: layout">
+        <th:block th:fragment="pageContent">
+            <div class="container">
+                <div class="card">
+                    <h2><i class="fas fa-upload"></i> Chi tiết Tài Liệu</h2>
+                </div>
+
+                <div class="card">
+                    <h2><i class="fas fa-book"></i> Kết quả phân tích tài liệu</h2>
+
+                    <div class="summary-box">
+                        <h3>Tóm tắt chi tiết</h3>
+                        <p th:text="${document.summary}"></p>
+                    </div>
+
+                    <div class="parts-box" th:if="${document.parts != null}">
+                        <div th:each="part : ${document.parts}">
+                            <h3 th:text="${part.title}"></h3>
+                            <p th:utext="${#strings.replace(part.content, '\n', '<br/>')}"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="row g-4 justify-content-center">
+                        <div class="col-6 col-md-6">
+                            <a href="javascript:void(0)" class="custom-card" id="learnBtn">
+                                <div class="icon-box">
+                                    <i class="fa-solid fa-circle-notch"></i>
+                                </div>
+                                <p class="card-text">Learn</p>
+                            </a>
+                        </div>
+
+                        <div class="col-6 col-md-6">
+                            <a href="javascript:void(0)" class="custom-card" id="testBtn">
+                                <div class="icon-box">
+                                    <i class="fa-solid fa-file-lines"></i>
+                                </div>
+                                <p class="card-text">Test</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div id="learnSection" class="hidden">
+                    <div id="tutorControls" class="tutor-controls">
+                        <button id="startTutor" class="call-btn call-start">
+                            <i class="fas fa-phone"></i>
+                        </button>
+
+                        <button id="stopTutor" class="call-btn call-stop hidden">
+                            <i class="fas fa-phone-slash"></i>
+                        </button>
+                    </div>
+
+                    <div id="transcriptContainer" class="transcript-container hidden">
+                        <div class="transcript-header">
+                            <h3><i class="fas fa-comments"></i> Tutor Transcript</h3>
+                            <button id="clearTranscript" class="btn-clear">
+                                <i class="fas fa-trash"></i> Clear
+                            </button>
+                        </div>
+
+                        <div id="transcriptContent" class="transcript-content"></div>
+                    </div>
+                </div>
+
+
+                <div id="testSection" class="hidden">
+                    <div id="quizContainer" th:data-total="${#lists.size(questions)}">
+                        <div th:each="q, qStat : ${questions}"
+                            class="quiz-question"
+                            th:data-index="${qStat.index}">
+
+                            <h4>
+                                Câu <span th:text="${qStat.index + 1}"></span>:
+                                <span th:text="${q.title}"></span>
+                            </h4>
+
+                            <ul>
+                                <li th:each="opt, optStat : ${q.options}">
+                                    <label>
+                                        <input type="radio"
+                                            th:name="'q' + ${qStat.index}"
+                                            th:value="${optStat.index}"
+                                            th:data-answer="${q.answer}">
+                                        <span th:text="${opt}"></span>
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="quiz-pagination">
+                        <button onclick="prevPage()">⬅ Trước</button>
+                        <span id="pageInfo"></span>
+                        <button onclick="nextPage()">Sau ➡</button>
+                    </div>
+
+                    <button class="btn btn-primary mt-3" onclick="submitQuiz()">Nộp bài</button>
+                    <div id="quizResult"></div>
+                </div>
+            </div>
+        </th:block>
+    </th:block>
+
+    <script>
+        let documentContext = "";
+
+    </script>
+
+    <script>
+        const QUESTIONS_PER_PAGE = 3;
+        let currentPage = 0;
+
+        const questions = document.querySelectorAll('.quiz-question');
+        const totalPages = Math.ceil(questions.length / QUESTIONS_PER_PAGE);
+
+        function renderPage() {
+            questions.forEach((q, i) => {
+                q.style.display =
+                    i >= currentPage * QUESTIONS_PER_PAGE &&
+                        i < (currentPage + 1) * QUESTIONS_PER_PAGE
+                        ? 'block'
+                        : 'none';
+            });
+
+            document.getElementById('pageInfo').innerText =
+                `Trang ${currentPage + 1} / ${totalPages}`;
+        }
+
+        function nextPage() {
+            if (currentPage < totalPages - 1) {
+                currentPage++;
+                renderPage();
+            }
+        }
+
+        function prevPage() {
+            if (currentPage > 0) {
+                currentPage--;
+                renderPage();
+            }
+        }
+
+        function submitQuiz() {
+            let correct = 0;
+
+            questions.forEach(q => {
+                const checked = q.querySelector('input:checked');
+                if (!checked) return;
+
+                const answer = checked.dataset.answer;
+                if (checked.value === answer) correct++;
+            });
+
+            const total = questions.length;
+            const score = Math.round((correct / total) * 100);
+
+            document.getElementById('quizResult').innerHTML = `
+            <div class="card mt-4">
+                <h3>Kết quả</h3>
+                <p>Đúng: <b>${correct}/${total}</b></p>
+                <p>Điểm: <b>${score}%</b></p>
+            </div>
+        `;
+        }
+
+        renderPage();
+    </script>
+
+
+    <script>
+        function showResult(correct, total, score) {
+            let level = "";
+            let comment = "";
+
+            if (score >= 85) {
+                level = "Xuất sắc";
+                comment = "Bạn nắm rất chắc kiến thức tài liệu.";
+            } else if (score >= 65) {
+                level = "Khá";
+                comment = "Hiểu tốt, nên ôn lại vài phần.";
+            } else if (score >= 40) {
+                level = "Trung bình";
+                comment = "Cần đọc lại tài liệu kỹ hơn.";
+            } else {
+                level = "Yếu";
+                comment = "Bạn nên học lại từ đầu.";
+            }
+
+            document.getElementById('quizResult').innerHTML = `
+            <div class="card mt-4">
+                <h3>Kết quả làm bài</h3>
+                <p>1. Đúng: <strong>${correct}/${total}</strong></p>
+                <p>2. Điểm: <strong>${score}%</strong></p>
+                <p>3. Đánh giá: <strong>${level}</strong></p>
+                <p>${comment}</p>
+            </div>
+        `;
+        }
+
+    </script>
+    <script>
+        const tutorControls = document.getElementById('tutorControls');
+        const startTutorBtn = document.getElementById('startTutor');
+        const stopTutorBtn = document.getElementById('stopTutor');
+
+        function showTutorControls() {
+            tutorControls.classList.remove('hidden');
+            startTutorBtn.classList.remove('hidden');
+            stopTutorBtn.classList.add('hidden');
+        }
+
+        function startTutor() {
+            startTutorBtn.classList.add('hidden');
+            stopTutorBtn.classList.remove('hidden');
+
+            transcriptContainer.classList.remove('hidden');
+
+            console.log("Tutor started");
+        }
+
+
+        function stopTutor() {
+            stopTutorBtn.classList.add('hidden');
+            startTutorBtn.classList.remove('hidden');
+
+            addTranscript("Buổi học kết thúc. Hẹn gặp lại!", "ai");
+
+            console.log("Tutor stopped");
+        }
+
+
+        startTutorBtn.addEventListener('click', startTutor);
+        stopTutorBtn.addEventListener('click', stopTutor);
+    </script>
+    <script>
+        const transcriptContainer = document.getElementById('transcriptContainer');
+        const transcriptContent = document.getElementById('transcriptContent');
+
+        function addTranscript(text, role = 'ai') {
+            const msg = document.createElement('div');
+            msg.classList.add(
+                'transcript-msg',
+                role === 'user' ? 'transcript-user' : 'transcript-ai'
+            );
+
+            const time = new Date().toLocaleTimeString();
+
+            msg.innerHTML = `
+            <div>${text}</div>
+            <div class="transcript-time">${time}</div>
+        `;
+
+            transcriptContent.appendChild(msg);
+            transcriptContent.scrollTop = transcriptContent.scrollHeight;
+        }
+    </script>
+    <script>
+        showTutorControls();
+    </script>
+
+    <script>
+        const clearTranscriptBtn = document.getElementById('clearTranscript');
+
+        function clearTranscript() {
+            transcriptContent.innerHTML = "";
+
+            currentBubble = null;
+            currentRole = null;
+            lastTranscript = "";
+
+            console.log("Transcript cleared");
+        }
+
+        clearTranscriptBtn.addEventListener('click', clearTranscript);
+    </script>
+
+    <script type="module" th:src="@{/assets/js/index.js}"></script>
+
+    <script>
+        const learnBtn = document.getElementById('learnBtn');
+        const testBtn = document.getElementById('testBtn');
+
+        const learnSection = document.getElementById('learnSection');
+        const testSection = document.getElementById('testSection');
+
+        function showLearn() {
+            learnSection.classList.remove('hidden');
+            testSection.classList.add('hidden');
+
+            showTutorControls();
+        }
+
+        function showTest() {
+            testSection.classList.remove('hidden');
+            learnSection.classList.add('hidden');
+
+            renderPage(); 
+        }
+
+        learnBtn.addEventListener('click', showLearn);
+        testBtn.addEventListener('click', showTest);
+    </script>
+
+
+</body>
+
+</html>

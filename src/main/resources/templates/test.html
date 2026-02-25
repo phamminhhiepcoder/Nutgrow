@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutgrow</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/api.css}">
+</head>
+<body>
+<th:block th:replace="layout/user-layout :: layout">
+    <th:block th:fragment="pageContent">
+
+        <div class="container">
+            <div class="header">
+                <h1><i class="fas fa-brain"></i> QUIZ AI – NUTGROW</h1>
+                <p>Upload tài liệu PDF và nhận tóm tắt + phân tích nội dung bằng AI</p>
+            </div>
+
+            <div class="card">
+                <h2><i class="fas fa-upload"></i> Upload tài liệu học tập (PDF)</h2>
+
+                <input type="file" id="fileInput" accept=".pdf" style="display: none;">
+
+                <div class="upload-zone" onclick="document.getElementById('fileInput').click()">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Click để chọn file PDF</p>
+                    <p style="font-size: 0.9rem; color: #999;">
+                        Tài liệu học tập, giáo trình, slide bài giảng
+                    </p>
+                </div>
+
+                <div id="filesList" class="files-list"></div>
+            </div>
+
+            <div class="card" style="text-align: center;">
+                <button id="analyzeBtn" class="btn btn-primary" disabled>
+                    <i class="fas fa-magic"></i> Phân tích tài liệu
+                </button>
+            </div>
+
+            <!-- Results -->
+            <div id="resultsContainer"></div>
+
+            <button id="generateQuizBtn">Tạo Quiz</button>
+            <div id="quizContainer"></div>
+        </div>
+    </th:block>
+</th:block>
+
+<script>
+    let uploadedFile = null;
+    const fileInput = document.getElementById('fileInput');
+    const filesList = document.getElementById('filesList');
+    const analyzeBtn = document.getElementById('analyzeBtn');
+    const resultsContainer = document.getElementById('resultsContainer');
+
+
+    fileInput.addEventListener('change', function (e) {
+        const file = e.target.files[0];
+
+        if (!file) return;
+
+        if (!file.name.toLowerCase().endsWith('.pdf')) {
+            alert('Chỉ chấp nhận file PDF');
+            return;
+        }
+
+        uploadedFile = file;
+        analyzeBtn.disabled = false;
+
+        filesList.innerHTML = `
+            <div class="file-item">
+                <div class="file-info">
+                    <i class="fas fa-file-pdf file-icon"></i>
+                    <div>
+                        <strong>${file.name}</strong>
+                        <div style="font-size: 0.9rem; color: #666;">
+                            ${(file.size / 1024).toFixed(2)} KB
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+
+
+    function removeFile(id) {
+        uploadedFiles = uploadedFiles.filter(f => f.id !== parseFloat(id));
+        renderFilesList();
+        updateButtonState();
+    }
+
+    analyzeBtn.addEventListener('click', async function () {
+        if (!uploadedFile) return;
+
+        analyzeBtn.disabled = true;
+        analyzeBtn.innerHTML = '<div class="spinner"></div> Đang phân tích...';
+
+        resultsContainer.innerHTML = `
+            <div class="card loading">
+                <div class="spinner"></div>
+                <p>AI đang đọc và tóm tắt tài liệu...</p>
+            </div>
+        `;
+
+        try {
+            const formData = new FormData();
+            formData.append('file', uploadedFile);
+
+            const uploadRes = await fetch('/api/study/upload', {
+                method: 'POST',
+                body: formData
+            });
+
+            const uploadData = await uploadRes.json();
+            const fileId = uploadData.fileId;
+
+             const analyzeRes = await fetch('/api/study/analyze', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ fileId })
+            });
+
+            const result = await analyzeRes.json();
+            displayResult(result);
+
+        } catch (err) {
+            resultsContainer.innerHTML = `
+                <div class="card">
+                    <div class="alert alert-danger">
+                        Lỗi phân tích: ${err.message}
+                    </div>
+                </div>
+            `;
+        } finally {
+            analyzeBtn.disabled = false;
+            analyzeBtn.innerHTML = '<i class="fas fa-magic"></i> Phân tích tài liệu';
+        }
+    });
+
+    function displayResult(result) {
+        const resultsContainer = document.getElementById('resultsContainer');
+
+        let htmlContent = `
+            <div class="card">
+                <h2><i class="fas fa-book"></i> Kết quả phân tích tài liệu</h2>
+
+                <div class="summary-box">
+                    <h3>Tóm tắt chi tiết</h3>
+                    <p>${result.summary}</p>
+                </div>
+        `;
+
+        if (result.parts && result.parts.length > 0) {
+            htmlContent += `<div class="parts-box">`;
+            result.parts.forEach((part, index) => {
+                htmlContent += `
+                    <h3>${part.title}</h3>
+                    <p>${part.content.replace(/\n/g, "<br>")}</p>
+                `;
+            });
+            htmlContent += `</div>`;
+        }
+
+        htmlContent += `</div>`;
+
+        resultsContainer.innerHTML = htmlContent;
+    }
+
+    document.getElementById('generateQuizBtn').addEventListener('click', async () => {
+        const res = await fetch('/api/study/quiz', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+        });
+        const quiz = await res.json();
+        displayQuiz(quiz);
+    });
+
+    function displayQuiz(quiz) {
+        const container = document.getElementById('quizContainer');
+        let html = '';
+
+        quiz.questions.forEach((q, index) => {
+            html += `<div class="quiz-question">
+                        <h4>Câu ${index + 1}: ${q.question}</h4>
+                        <ul>`;
+            q.options.forEach((opt, i) => {
+                html += `<li><input type="radio" name="q${index}" value="${i}"> ${opt}</li>`;
+            });
+            html += `</ul></div>`;
+        });
+
+        container.innerHTML = html;
+    }
+
+
+</script>
+</body>
+</html>

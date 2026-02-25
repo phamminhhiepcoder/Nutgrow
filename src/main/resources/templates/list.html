@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Tài liệu của tôi</title>
+    <link rel="stylesheet" th:href="@{/assets/css/document-list.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+
+<body>
+
+    <th:block th:replace="layout/user-layout :: layout">
+        <th:block th:fragment="pageContent">
+
+            <div class="container">
+                <h2 class="page-title">
+                    <i class="fas fa-folder-open"></i> Tài liệu đã lưu
+                </h2>
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Tìm kiếm tài liệu..." onkeyup="filterDocuments()">
+                </div>
+
+
+                <div class="document-grid">
+                    <div class="document-card" th:each="doc : ${documents}">
+                        <div class="doc-header">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+
+                        <div class="doc-body">
+                            <h3 class="doc-title">
+                                <a th:href="${doc.fileUrl}" target="_blank" th:text="${doc.name}">
+                                    Tên tài liệu
+                                </a>
+                            </h3>
+
+
+                            <p class="doc-summary" th:text="${#strings.abbreviate(doc.summary, 120)}">
+                                Mô tả tài liệu...
+                            </p>
+                        </div>
+
+                        <div class="doc-footer">
+                            <a th:href="@{/user/document/{id}(id=${doc.id})}" class="btn btn-view">
+                                <i class="fas fa-eye"></i> Xem
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <p th:if="${documents.isEmpty()}" class="empty-text">
+                    Bạn chưa lưu tài liệu nào
+                </p>
+            </div>
+
+        </th:block>
+    </th:block>
+    <script>
+        function filterDocuments() {
+            const input = document.getElementById("searchInput");
+            const filter = input.value.toLowerCase();
+
+            const cards = document.querySelectorAll(".document-card");
+
+            cards.forEach(card => {
+                const title = card.querySelector("h3").innerText.toLowerCase();
+                const summary = card.querySelector(".doc-summary").innerText.toLowerCase();
+
+                if (title.includes(filter) || summary.includes(filter)) {
+                    card.style.display = "flex";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en-US" xmlns:th="www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<th:block th:replace="layout/user-layout :: layout">
+    <th:block th:fragment="pageContent">
+        <header>
+            <div class="cover bg-light">
+                <div class="container px-2">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="mt-5 pt-lg-5">
+                                <img class="pt-2 img-fluid" th:src="@{/assets/images/slogan.png}"
+                                alt="building_websites" />
+
+                                <p class="lead fw-normal mt-4" data-aos="fade-up" data-aos-delay="100">
+                                    Nền tảng phân tích tài liệu, tạo quiz và đánh giá năng lực
+                                    tự động bằng trí tuệ nhân tạo AI
+                                </p>
+
+                                <div class="mt-3" data-aos="fade-up" data-aos-delay="200" style="margin-bottom: 25px">
+                                    <a class="btn btn-success shadow-sm mt-1 me-2" th:href="@{/analyze}">
+                                        Tải lên tài liệu
+                                        <i class="fas fa-arrow-right ms-1"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Giữ nguyên ảnh -->
+                        <div class="col-lg-6 p-3 pe-lg-0" data-aos="fade-left" data-aos-delay="100">
+                            <img class="pt-2 img-fluid" th:src="@{/assets/images/illustrations/building_websites.svg}"
+                                alt="building_websites" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="wave-bg"></div>
+        </header>
+
+        <div class="section pt-3 pt-lg-5 px-2 px-lg-4" id="about">
+            <div class="container-narrow">
+                <div class="text-center mb-4">
+                    <h2 class="marker marker-center">Đồng hành cùng NutGrow</h2>
+                </div>
+
+                <div class="text-center">
+                    <p class="mx-auto mb-3" style="max-width: 800px">
+                        NutGrow hợp tác chặt chẽ với giáo viên, trung tâm đào tạo và tổ chức
+                        giáo dục để xây dựng giải pháp đánh giá học tập thông minh,
+                        linh hoạt và phù hợp với từng nhu cầu thực tế.
+                    </p>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row py-3">
+                    <!-- Step 1 -->
+                    <div class="col-md-6 col-lg-3 text-center" data-aos="fade-up" data-aos-delay="100">
+                        <div class="border rounded p-3 bg-light mb-3">
+                            <div class="text-center text-secondary display-3">
+                                <i class="bi bi-palette-fill"></i>
+                            </div>
+                            <h3 class="h4 mt-2">Thiết kế giải pháp</h3>
+                            <p class="text-small">
+                                Phân tích nhu cầu đào tạo và thiết kế hệ thống AI
+                                phù hợp với môn học, chương trình và đối tượng người học.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="col-md-6 col-lg-3 text-center" data-aos="fade-up" data-aos-delay="200">
+                        <div class="border rounded p-3 bg-light mb-3">
+                            <div class="text-center text-secondary display-3">
+                                <i class="bi bi-chat-left-text-fill"></i>
+                            </div>
+                            <h3 class="h4 mt-2">Phản hồi & điều chỉnh</h3>
+                            <p class="text-small">
+                                Thu thập phản hồi từ giáo viên và học viên để
+                                tối ưu câu hỏi, tiêu chí đánh giá và trải nghiệm sử dụng.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="col-md-6 col-lg-3 text-center" data-aos="fade-up" data-aos-delay="300">
+                        <div class="border rounded p-3 bg-light mb-3">
+                            <div class="text-center text-secondary display-3">
+                                <i class="bi bi-calendar-check-fill"></i>
+                            </div>
+                            <h3 class="h4 mt-2">Triển khai & vận hành</h3>
+                            <p class="text-small">
+                                Triển khai hệ thống NutGrow vào giảng dạy,
+                                kiểm tra – đánh giá và theo dõi kết quả học tập theo thời gian thực.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="col-md-6 col-lg-3 text-center" data-aos="fade-up" data-aos-delay="400">
+                        <div class="border rounded p-3 bg-light mb-3">
+                            <div class="text-center text-secondary display-3">
+                                <i class="bi bi-people-fill"></i>
+                            </div>
+                            <h3 class="h4 mt-2">Hỗ trợ & phát triển</h3>
+                            <p class="text-small">
+                                Đội ngũ NutGrow hỗ trợ liên tục, cập nhật AI
+                                và đồng hành cùng đối tác trong quá trình mở rộng quy mô.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row py-3 py-lg-5">
+                    <div class="col-lg-6 col-md-5 px-3 order-md-last" data-aos="fade-zoom-in" data-aos-delay="50"
+                        data-aos-easing="ease-in-back">
+                        <img class="my-3 img-fluid" src="assets/images/illustrations/development.svg"
+                            alt="NutGrow AI Development" />
+                    </div>
+
+                    <div class="col-lg-6 col-md-7 px-2" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="h3 mb-2">
+                            Đội ngũ <strong>NutGrow AI</strong> thấu hiểu và đồng hành cùng quá trình học tập.
+                        </div>
+
+                        <p class="text-secondary mb-3">
+                            NutGrow không chỉ cung cấp công cụ, mà còn mang đến giải pháp AI toàn diện
+                            giúp phân tích nội dung học tập, tạo bài kiểm tra và đánh giá năng lực
+                            người học một cách chính xác và hiệu quả.
+                        </p>
+
+                        <div class="row">
+                            <div class="col-lg-6 mb-2">
+                                <div class="border border-3 rounded px-2 py-2 d-flex align-items-center">
+                                    <div class="badge bg-success me-2">
+                                        <i class="fas fa-check"></i>
+                                    </div>
+                                    <div class="text-secondary fw-bold">
+                                        Cá nhân hóa lộ trình học
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 mb-2">
+                                <div class="border border-3 rounded px-2 py-2 d-flex align-items-center">
+                                    <div class="badge bg-success me-2">
+                                        <i class="fas fa-check"></i>
+                                    </div>
+                                    <div class="text-secondary fw-bold">
+                                        Sinh quiz tự động bằng AI
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 mb-2">
+                                <div class="border border-3 rounded px-2 py-2 d-flex align-items-center">
+                                    <div class="badge bg-success me-2">
+                                        <i class="fas fa-check"></i>
+                                    </div>
+                                    <div class="text-secondary fw-bold">
+                                        Phân tích kết quả học tập
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 mb-2">
+                                <div class="border border-3 rounded px-2 py-2 d-flex align-items-center">
+                                    <div class="badge bg-success me-2">
+                                        <i class="fas fa-check"></i>
+                                    </div>
+                                    <div class="text-secondary fw-bold">
+                                        Hỗ trợ giáo viên & học viên 24/7
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row py-3 py-lg-5">
+                    <div class="col-lg-6 col-md-5 px-3" data-aos="fade-zoom-in" data-aos-delay="50"
+                        data-aos-easing="ease-in-back">
+                        <img class="my-3 img-fluid" src="assets/images/illustrations/creative-team.svg"
+                            alt="NutGrow Expert Team" />
+                    </div>
+
+                    <div class="col-lg-6 col-md-7 px-2" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="h3 mb-2">
+                            Đội ngũ <strong>chuyên gia NutGrow</strong> mang lại kết quả vượt trội.
+                        </div>
+
+                        <p class="text-secondary mb-2">
+                            NutGrow được xây dựng bởi đội ngũ giàu kinh nghiệm trong giáo dục,
+                            trí tuệ nhân tạo và công nghệ, đảm bảo giải pháp đánh giá học tập
+                            chính xác, minh bạch và dễ mở rộng.
+                        </p>
+
+                        <div>
+                            <!-- Skill 1 -->
+                            <div class="py-1">
+                                <div class="d-flex text-small fw-bolder">
+                                    <span class="me-auto">Phân tích tài liệu bằng AI</span><span>95%</span>
+                                </div>
+                                <div class="progress my-1">
+                                    <div class="progress-bar bg-secondary" role="progressbar" data-aos="zoom-in-right"
+                                        data-aos-delay="300" data-aos-anchor=".skills-section" style="width: 95%"
+                                        aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+
+                            <!-- Skill 2 -->
+                            <div class="py-1">
+                                <div class="d-flex text-small fw-bolder">
+                                    <span class="me-auto">Tạo Quiz & Câu hỏi thông minh</span><span>90%</span>
+                                </div>
+                                <div class="progress my-1">
+                                    <div class="progress-bar bg-success" role="progressbar" data-aos="zoom-in-right"
+                                        data-aos-delay="400" data-aos-anchor=".skills-section" style="width: 90%"
+                                        aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+
+                            <!-- Skill 3 -->
+                            <div class="py-1">
+                                <div class="d-flex text-small fw-bolder">
+                                    <span class="me-auto">Đánh giá & phân tích năng lực</span><span>85%</span>
+                                </div>
+                                <div class="progress my-1">
+                                    <div class="progress-bar bg-secondary" role="progressbar" data-aos="zoom-in-right"
+                                        data-aos-delay="500" data-aos-anchor=".skills-section" style="width: 85%"
+                                        aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+
+                            <!-- Skill 4 -->
+                            <div class="py-1">
+                                <div class="d-flex text-small fw-bolder">
+                                    <span class="me-auto">Nền tảng giáo dục số & mở rộng hệ thống</span><span>80%</span>
+                                </div>
+                                <div class="progress my-1">
+                                    <div class="progress-bar bg-success" role="progressbar" data-aos="zoom-in-right"
+                                        data-aos-delay="600" data-aos-anchor=".skills-section" style="width: 80%"
+                                        aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row py-3 py-lg-5">
+                    <div class="col-lg-6 col-md-5 px-3 order-md-last" data-aos="fade-zoom-in" data-aos-delay="50"
+                        data-aos-easing="ease-in-back">
+                        <img class="my-3 img-fluid" src="assets/images/illustrations/work-chat.svg"
+                            alt="NutGrow AI Quiz" />
+                    </div>
+
+                    <div class="col-lg-6 col-md-7 px-2" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="h3 mb-2">
+                            NutGrow – <strong>Phân tích tài liệu & Đánh giá năng lực bằng AI</strong>
+                        </div>
+
+                        <p class="text-secondary mb-3">
+                            NutGrow ứng dụng trí tuệ nhân tạo để phân tích tài liệu học tập,
+                            tự động tạo câu hỏi và đánh giá năng lực người học một cách chính xác,
+                            nhanh chóng và cá nhân hóa.
+                        </p>
+
+                        <ul class="nav nav-tabs nav-fill" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link p-1 active" aria-current="page" href="#analysis"
+                                    data-bs-toggle="tab">
+                                    <span class="badge bg-secondary me-1">1</span>
+                                    Phân tích tài liệu
+                                </a>
+                            </li>
+
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link p-1" href="#quiz" data-bs-toggle="tab">
+                                    <span class="badge bg-secondary me-1">2</span>
+                                    Sinh Quiz thông minh
+                                </a>
+                            </li>
+
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link p-1" href="#evaluation" data-bs-toggle="tab">
+                                    <span class="badge bg-secondary me-1">3</span>
+                                    Đánh giá & Báo cáo
+                                </a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content border border-top-0 text-secondary p-3" id="myTabContent">
+                            <!-- Tab 1 -->
+                            <div class="tab-pane fade show active" id="analysis" role="tabpanel">
+                                <p>
+                                    NutGrow tự động phân tích tài liệu như PDF, Word, slide
+                                    để trích xuất nội dung trọng tâm, khái niệm quan trọng
+                                    và mức độ khó của kiến thức.
+                                </p>
+                                <p>
+                                    AI hiểu cấu trúc tài liệu, liên kết nội dung và phát hiện
+                                    các chủ đề cốt lõi để phục vụ việc kiểm tra – đánh giá.
+                                </p>
+                                <a class="fw-bold text-decoration-none" href="#!">
+                                    Tìm hiểu thêm <i class="fas fa-arrow-right ms-1"></i>
+                                </a>
+                            </div>
+
+                            <!-- Tab 2 -->
+                            <div class="tab-pane fade" id="quiz" role="tabpanel">
+                                <p>
+                                    Hệ thống AI tự động sinh câu hỏi trắc nghiệm, tự luận
+                                    và tình huống dựa trên nội dung tài liệu.
+                                </p>
+                                <p>
+                                    Câu hỏi được phân cấp theo độ khó, bám sát mục tiêu học tập
+                                    và có thể cá nhân hóa cho từng người học.
+                                </p>
+                                <a class="fw-bold text-decoration-none" href="#!">
+                                    Xem cách hoạt động <i class="fas fa-arrow-right ms-1"></i>
+                                </a>
+                            </div>
+
+                            <!-- Tab 3 -->
+                            <div class="tab-pane fade" id="evaluation" role="tabpanel">
+                                <p>
+                                    NutGrow đánh giá kết quả làm bài, phân tích điểm mạnh – yếu
+                                    và mức độ hiểu bài của người học.
+                                </p>
+                                <p>
+                                    Báo cáo trực quan giúp giáo viên và tổ chức theo dõi tiến trình,
+                                    cải thiện chất lượng giảng dạy và đào tạo.
+                                </p>
+                                <a class="fw-bold text-decoration-none" href="#!">
+                                    Xem báo cáo mẫu <i class="fas fa-arrow-right ms-1"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+       
+        <div class="section bg-light py-3 py-lg-5 px-2 px-lg-4" id="services">
+            <div class="container-narrow">
+                <div class="text-center mb-5">
+                    <h2 class="marker marker-center">Dịch vụ của NutGrow</h2>
+                </div>
+
+                <div class="text-center">
+                    <p class="mx-auto mb-3" style="max-width: 800px">
+                        NutGrow cung cấp giải pháp AI toàn diện giúp phân tích tài liệu học tập,
+                        tự động tạo bài kiểm tra và đánh giá năng lực người học một cách
+                        chính xác, nhanh chóng và cá nhân hóa.
+                    </p>
+                </div>
+
+                <div class="row py-3">
+                    <!-- Service 1 -->
+                    <div class="col-md-4 text-center mb-3" data-aos="fade-up" data-aos-delay="100">
+                        <div class="bg-white border rounded-circle d-inline-block p-2">
+                            <img class="p-2" src="assets/images/services/web-design.svg" width="96" height="96"
+                                alt="document-analysis" />
+                        </div>
+                        <div class="bg-white border rounded p-3 mt-n4">
+                            <div class="h5 mt-3">Phân tích tài liệu AI</div>
+                            <p class="text-small">
+                                Tự động phân tích PDF, Word, slide để trích xuất kiến thức cốt lõi,
+                                xác định chủ đề trọng tâm và mức độ khó của nội dung học tập.
+                            </p>
+                            <a class="btn btn-link" href="#!">
+                                Tìm hiểu thêm <i class="fas fa-arrow-right ms-1"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Service 2 -->
+                    <div class="col-md-4 text-center mb-3" data-aos="fade-up" data-aos-delay="200">
+                        <div class="bg-white border rounded-circle d-inline-block p-2">
+                            <img class="p-2" src="assets/images/services/graphic-design.svg" width="96" height="96"
+                                alt="quiz-generation" />
+                        </div>
+                        <div class="bg-white border rounded p-3 mt-n4">
+                            <div class="h5 mt-3">Sinh Quiz thông minh</div>
+                            <p class="text-small">
+                                AI tự động tạo câu hỏi trắc nghiệm, tự luận và tình huống
+                                theo nhiều mức độ, bám sát mục tiêu và nội dung tài liệu.
+                            </p>
+                            <a class="btn btn-link" href="#!">
+                                Xem chi tiết <i class="fas fa-arrow-right ms-1"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Service 3 -->
+                    <div class="col-md-4 text-center mb-3" data-aos="fade-up" data-aos-delay="300">
+                        <div class="bg-white border rounded-circle d-inline-block p-2">
+                            <img class="p-2" src="assets/images/services/ui-ux.svg" width="96" height="96"
+                                alt="evaluation-report" />
+                        </div>
+                        <div class="bg-white border rounded p-3 mt-n4">
+                            <div class="h5 mt-3">Đánh giá & Báo cáo</div>
+                            <p class="text-small">
+                                Phân tích kết quả học tập, xác định điểm mạnh – yếu và
+                                cung cấp báo cáo trực quan giúp cải thiện hiệu quả giảng dạy.
+                            </p>
+                            <a class="btn btn-link" href="#!">
+                                Xem báo cáo <i class="fas fa-arrow-right ms-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section bg-secondary text-light py-3 py-lg-5 px-2 px-lg-4" id="stats">
+            <div class="container-narrow">
+                <div class="row px-4">
+                    <div class="col-md-3 col-sm-6">
+                        <div class="d-flex py-2">
+                            <i class="mr-3 fas fa-clipboard-check fa-4x fa-fw"></i>
+                            <div class="ms-1">
+                                <div class="h2 mb-1 purecounter" data-purecounter-start="0" data-purecounter-end="1200"
+                                    data-purecounter-duration="1">
+                                    1200
+                                </div>
+                                <div class="h6">Bài Quiz đã tạo</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-6">
+                        <div class="d-flex py-2">
+                            <i class="mr-3 fas fa-smile fa-4x fa-fw"></i>
+                            <div class="ms-1">
+                                <div class="h2 mb-1 purecounter" data-purecounter-start="0" data-purecounter-end="350"
+                                    data-purecounter-duration="1">
+                                    350
+                                </div>
+                                <div class="h6">Giáo viên & tổ chức</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-6">
+                        <div class="d-flex py-2">
+                            <i class="mr-3 fas fa-file-alt fa-4x fa-fw"></i>
+                            <div class="ms-1">
+                                <div class="h2 mb-1 purecounter" data-purecounter-start="0" data-purecounter-end="4800"
+                                    data-purecounter-duration="1">
+                                    4800
+                                </div>
+                                <div class="h6">Tài liệu đã phân tích</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-6">
+                        <div class="d-flex py-2">
+                            <i class="mr-3 fas fa-clock fa-4x fa-fw"></i>
+                            <div class="ms-1">
+                                <div class="h2 mb-1 purecounter" data-purecounter-start="0" data-purecounter-end="24"
+                                    data-purecounter-duration="1">
+                                    24/7
+                                </div>
+                                <div class="h6">Hỗ trợ AI & hệ thống</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="section py-3 py-lg-5 px-2 px-lg-4" id="testimonials">
+            <div class="container-narrow">
+                <div class="text-center mb-5">
+                    <h2 class="marker marker-center">Đánh giá của Phụ huynh & Học sinh</h2>
+                </div>
+                <div class="row">
+
+                    <div class="col-md-6 mb-5" data-aos="fade-right" data-aos-delay="100">
+                        <div class="d-flex ms-md-3">
+                            <span><i class="fas fa-2x fa-quote-left"></i></span>
+                            <span class="m-2">
+                                Nutgrow giúp con tôi xác định rõ năng lực hiện tại và xây dựng
+                                lộ trình học Toán phù hợp theo từng giai đoạn. AI phân tích rất
+                                chi tiết, dễ hiểu và sát với chương trình học tại Việt Nam.
+                            </span>
+                        </div>
+                        <div class="d-flex justify-content-end align-items-end">
+                            <div class="text-end me-2">
+                                <div class="fw-bolder">Chị Lan Anh</div>
+                                <div class="text-small">Phụ huynh học sinh lớp 8</div>
+                            </div>
+                            <img class="me-md-3 rounded" src="assets/images/testimonials/client1.jpg" width="96"
+                                height="96" alt="client 1" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-5" data-aos="fade-left" data-aos-delay="300">
+                        <div class="d-flex ms-md-3">
+                            <span><i class="fas fa-2x fa-quote-left"></i></span>
+                            <span class="m-2">
+                                Môn Văn trước đây là nỗi sợ của mình, nhưng Nutgrow đã gợi ý
+                                phương pháp học và luyện viết rất logic. AI phân tích bài làm
+                                và đưa ra nhận xét rõ ràng, đúng trọng tâm.
+                            </span>
+                        </div>
+                        <div class="d-flex justify-content-end align-items-end">
+                            <div class="text-end me-2">
+                                <div class="fw-bolder">Nguyễn Minh Quân</div>
+                                <div class="text-small">Học sinh lớp 10</div>
+                            </div>
+                            <img class="me-md-3 rounded" src="assets/images/testimonials/client2.jpg" width="96"
+                                height="96" alt="client 2" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-5" data-aos="fade-right" data-aos-delay="100">
+                        <div class="d-flex ms-md-3">
+                            <span><i class="fas fa-2x fa-quote-left"></i></span>
+                            <span class="m-2">
+                                Tôi đánh giá cao khả năng cá nhân hóa lộ trình học của Nutgrow.
+                                AI không chỉ dựa vào điểm số mà còn phân tích thói quen học tập,
+                                từ đó đề xuất cách học hiệu quả hơn cho từng học sinh.
+                            </span>
+                        </div>
+                        <div class="d-flex justify-content-end align-items-end">
+                            <div class="text-end me-2">
+                                <div class="fw-bolder">Thầy Trần Quốc Hùng</div>
+                                <div class="text-small">Giáo viên Toán THPT</div>
+                            </div>
+                            <img class="me-md-3 rounded" src="assets/images/testimonials/client3.jpg" width="96"
+                                height="96" alt="client 3" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-5" data-aos="fade-left" data-aos-delay="300">
+                        <div class="d-flex ms-md-3">
+                            <span><i class="fas fa-2x fa-quote-left"></i></span>
+                            <span class="m-2">
+                                Nutgrow là giải pháp học tập thông minh cho phụ huynh bận rộn.
+                                Chỉ cần vài phút đánh giá, hệ thống AI đã đề xuất lộ trình
+                                học Toán – Văn rõ ràng, giúp con học đúng trọng tâm và tiết kiệm thời gian.
+                            </span>
+                        </div>
+                        <div class="d-flex justify-content-end align-items-end">
+                            <div class="text-end me-2">
+                                <div class="fw-bolder">Anh Phạm Đức Long</div>
+                                <div class="text-small">Phụ huynh học sinh lớp 6</div>
+                            </div>
+                            <img class="me-md-3 rounded" src="assets/images/testimonials/client4.jpg" width="96"
+                                height="96" alt="client 4" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section py-3 py-lg-5 px-2 px-lg-4" id="contact">
+            <div class="container-narrow">
+                <div class="text-center mb-5">
+                    <h2 class="marker marker-center">Liên hệ với chúng tôi</h2>
+                </div>
+                <div class="row">
+                    <div class="col-md-6" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="bg-light my-2 p-3 pt-2">
+                            <form action="#" method="post">
+                                <div class="form-group my-2">
+                                    <label for="name" class="form-label fw-bolder">
+                                        Họ và tên
+                                    </label>
+                                    <input class="form-control" type="text" id="name" name="name"
+                                        placeholder="Nhập họ và tên" required />
+                                </div>
+                                <div class="form-group my-2">
+                                    <label for="email" class="form-label fw-bolder">
+                                        Email
+                                    </label>
+                                    <input class="form-control" type="email" id="email" name="email"
+                                        placeholder="example@gmail.com" required />
+                                </div>
+                                <div class="form-group my-2">
+                                    <label for="message" class="form-label fw-bolder">
+                                        Nội dung liên hệ
+                                    </label>
+                                    <textarea class="form-control" style="resize: none" id="message" name="message"
+                                        rows="4"
+                                        placeholder="Bạn cần Nutgrow tư vấn lộ trình học Toán, Văn như thế nào?"
+                                        required></textarea>
+                                </div>
+                                <button class="btn btn-primary mt-2" type="submit">
+                                    Gửi liên hệ
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6" data-aos="fade-left" data-aos-delay="300">
+                        <div class="mt-3 px-2">
+                            <div class="h5">Nutgrow luôn sẵn sàng hỗ trợ bạn!</div>
+                            <p>
+                                Nếu bạn cần tư vấn lộ trình học Toán, Văn cá nhân hóa bằng AI,
+                                hãy để lại thông tin cho chúng tôi.
+                            </p>
+                            <p>
+                                Đội ngũ Nutgrow sẽ phản hồi nhanh chóng và đồng hành cùng bạn
+                                trong suốt quá trình học tập.
+                            </p>
+                            <p>Rất mong được kết nối với bạn!</p>
+                        </div>
+
+                        <div class="mt-5 px-2">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="pb-1">Email:</div>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="pb-1 fw-bolder">
+                                        support@nutgrow.vn
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <div class="pb-1">Hotline:</div>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="pb-1 fw-bolder">
+                                        090x xxx xxx
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <div class="pb-1">Địa chỉ:</div>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="pb-1 fw-bolder">
+                                        Việt Nam
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </th:block>
+</th:block>
+</body>
+
+</html>

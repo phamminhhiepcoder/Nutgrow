@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" th:fragment="layout" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="utf-8"/>
+    <title>Dashboard</title>
+</head>
+<body>
+
+<th:block th:replace="layout/admin-layout :: layout">
+    <th:block th:fragment="pageContent">
+        <div class="xs-pd-20-10 pd-ltr-20">
+            <div class="title pb-20">
+                <h2 class="h3 mb-0">Tổng quan</h2>
+            </div>
+
+            <div class="row pb-10">
+                <div class="col-xl-3 col-lg-3 col-md-6 mb-20">
+                    <div class="card-box height-100-p widget-style3">
+                        <div class="d-flex flex-wrap">
+                            <div class="widget-data">
+                                <div class="weight-700 font-24 text-dark" >50,000</div>
+                                <div class="font-14 text-secondary weight-500">
+                                    Khách hàng
+                                </div>
+                            </div>
+                            <div class="widget-icon">
+                                <div class="icon" data-color="#ff5b5b">
+                                    <span class="icon-copy ti-heart"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row pb-10 mt-4">
+                <div class="col-md-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title d-flex justify-content-between align-items-center">
+                                Doanh thu theo ngày trong tháng
+                                <span>
+                                <button id="prevMonthBtn" class="btn btn-outline-primary btn-sm"><<</button>
+                                <span id="revenueMonthLabel" class="mx-2"></span>
+                                <button id="nextMonthBtn" class="btn btn-outline-primary btn-sm">>></button>
+                            </span>
+                            </h4>
+                            <div class="chart-container" style="position: relative; height: 400px;">
+                                <canvas id="dailyRevenueChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </th:block>
+</th:block>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+</body>
+</html>
