@@ -61,7 +61,7 @@ User
 ## 🛠 Tech Stack
 
 ### Backend
-- Node.js / Spring Boot
+- Spring Boot
 - RESTful APIs
 
 ### AI Services
@@ -69,7 +69,7 @@ User
 - vAPI (Voice AI)
 
 ### Database
-- MySQL / PostgreSQL
+- MySQL
 
 ### External Services
 - GitHub Repository (File Management)
@@ -82,28 +82,24 @@ User
 
 ```bash
 # Clone repository
-git clone https://github.com/your-username/ai-study-assistant.git
-
-# Install dependencies
-npm install
+git clone https://github.com/phamminhhiepcoder/Nutgrow.git
 
 # Run project
-npm start
+Click Run Java in VS Code or Intellij IDEA
 ```
 
 ---
 
 ## 🔐 Environment Variables
 
-Create a `.env` file:
+Setup your keys in application.properties:
 
 ```
-OPENAI_API_KEY=your_openai_key
-VAPI_API_KEY=your_vapi_key
-VNPAY_TMN_CODE=your_vnpay_code
-VNPAY_HASH_SECRET=your_secret
-EMAIL_USER=your_google_email
-EMAIL_PASS=your_google_app_password
+openai.api.key=<open-ai-key>
+openai.model=<open-ai-model>
+spring.security.oauth2.client.registration.google.client-id=<client-id>
+spring.security.oauth2.client.registration.google.client-secret=<client-secret>
+github.token=<github-token>
 ```
 
 ---
@@ -114,12 +110,4 @@ EMAIL_PASS=your_google_app_password
 - Advanced analytics dashboard
 - Mobile app integration
 
----
 
-## 👨‍💻 Author
-Developed by [Your Name]
-
----
-
-## 📄 License
-This project is licensed under the MIT License.
