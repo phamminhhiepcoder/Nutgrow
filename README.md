@@ -104,6 +104,14 @@ github.token=<github-token>
 
 ---
 
+## Screenshots
+<img width="1861" height="956" alt="image" src="https://github.com/user-attachments/assets/fb4ee99c-8026-4396-9d0a-afc1e2b30e53" />
+<img width="1608" height="619" alt="image" src="https://github.com/user-attachments/assets/bc3870c4-5d14-4fe8-9dd1-a4d18b255546" />
+<img width="1868" height="894" alt="image" src="https://github.com/user-attachments/assets/aa325769-85be-48a1-9111-62053ebd53a2" />
+<img width="1761" height="855" alt="image" src="https://github.com/user-attachments/assets/acae4969-3170-4975-b5bc-eb349a88051d" />
+
+---
+
 ## 📌 Future Improvements
 - AI performance optimization
 - Multi-language support
