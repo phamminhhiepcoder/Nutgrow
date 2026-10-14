@@ -115,7 +115,5 @@ github.token=<github-token>
 ## 📌 Future Improvements
 - AI performance optimization
 - Multi-language support
-- Advanced analytics dashboard
 - Mobile app integration
-
 
